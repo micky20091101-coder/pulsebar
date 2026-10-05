@@ -274,10 +274,11 @@
     <h1>把 Mac 的状态<br><span class="grad">放在菜单栏里</span></h1>
     <p class="sub">温度、内存压力、CPU、网络、磁盘、电池——抬头一眼就看清。不自动杀进程，不后台联网，安静地待在角落。</p>
     <div class="cta">
-      <a class="btn primary" data-download href="#pricing">免费下载</a>
+      <a class="btn primary" data-download href="#pricing">直接下载</a>
+      <a class="btn ghost" data-github-download href="#">从 GitHub 下载</a>
       <a class="btn ghost" data-donate href="#">☕ 请我喝杯咖啡</a>
     </div>
-    <div class="meta">v2.1 · 完全免费 · 需要 macOS 14+ · 适配全部 Apple M 系列芯片</div>
+    <div class="meta">v2.3 · 完全免费 · 需要 macOS 14+ · 适配全部 Apple M 系列芯片</div>
   </div>
   <div class="shot wrap">
     <img src="assets/panel.png" alt="PulseBar 面板截图">
@@ -364,9 +365,13 @@
           <li>后续所有更新，永久免费</li>
         </ul>
         <a class="btn primary" data-download href="#"
-           style="width:100%;justify-content:center">下载 macOS 版 · 1.3 MB</a>
+           style="width:100%;justify-content:center">直接下载 · 1.3 MB</a>
+        <a class="btn ghost" data-github-download href="#"
+           style="width:100%;justify-content:center;margin-top:8px">从 GitHub 下载</a>
         <div class="dl-note">
-          一份安装包通用全部 Apple M 芯片（M1 / M2 / M3 / M4，含 Air、Pro、mini、iMac、Studio）· 需要 macOS 14+<br>
+          <b>直接下载</b>：点一下立刻开始，不跳转、不注册。<br>
+          <b>从 GitHub 下载</b>：跳到项目的 Releases 页面，能看历史版本和更新记录。<br>
+          一份安装包通用全部 Apple M 芯片（M1~M4，含 Air、Pro、mini、iMac、Studio）· 需要 macOS 14+<br>
           首次打开若提示「无法验证开发者」：右键点图标 → 打开 → 再点一次「打开」。
         </div>
       </div>
@@ -377,6 +382,7 @@
         <div class="amount">¥9.9 <small>/ 一次买断</small></div>
         <ul>
           <li>免费版的全部功能</li>
+          <li><b>分页切换 / 整页铺满</b>：把面板拆成几页，或一次铺满全部信息</li>
           <li><b>历史曲线</b>：回看过去 1 小时 / 24 小时的内存、温度、CPU</li>
           <li><b>隐形大户侦测</b>：找出你不在时偷偷吃内存的后台程序</li>
           <li><b>自动清理规则自定义</b>：给不同 App 设不同策略</li>
@@ -439,16 +445,32 @@
 <section id="whatsnew" class="contrast">
   <div class="wrap">
     <div class="sec-title">
-      <h2>2.1 更新：面板不用再滚动了</h2>
-      <p>以前面板高度是固定的，信息多的时候得上下拖。现在默认一屏看全。</p>
+      <h2>2.3 更新：菜单栏和系统「长在一起」</h2>
+      <p>这一版没加新功能，全部精力花在两件「看着不起眼但很烦」的事上：<b style="color:var(--accent)">菜单栏的字要和系统一样大</b>，<b style="color:var(--accent)">面板要稳稳待在图标下面</b>。</p>
     </div>
-    <div class="grid">
-      <div class="card"><div class="ico">📐</div><h3>自动撑开高度</h3><p>面板会按内容自适应，装得下就不出现滚动条。默认就开。</p></div>
-      <div class="card"><div class="ico">🔤</div><h3>字号可调</h3><p>紧凑 / 标准 / 宽松三档。选「紧凑」字变小，整体高度能降约 9%。</p></div>
-      <div class="card"><div class="ico">↔️</div><h3>宽度可调</h3><p>窄 / 标准 / 宽 / 很宽。越宽越不容易换行，整体越矮。</p></div>
-      <div class="card"><div class="ico">🧩</div><h3>区块可关</h3><p>内存、温度、风扇、CPU、概览、进程榜都能单独关掉。只要「内存+温度」也没问题。</p></div>
-      <div class="card"><div class="ico">📏</div><h3>紧凑间距</h3><p>卡片内外边距一起收紧，高度再降约 15%。</p></div>
-      <div class="card"><div class="ico">⚡</div><h3>最紧凑能到 971</h3><p>「很宽 + 紧凑字号 + 紧凑间距」三件套，高度从 1261 降到约 971。</p></div>
+    <div class="split">
+      <div>
+        <h3 style="margin-top:0">菜单栏文字与系统完全一致</h3>
+        <p style="color:var(--muted)">之前用的是别的字体，摆在一排系统图标里总觉得"小一圈、不是亲生的"。现在改成 macOS 菜单栏的原生字体（13pt），字高、基线全都对齐。</p>
+        <ul class="checklist">
+          <li><span class="ok">✓</span> 和旁边的电池、蓝牙、时钟一样大</li>
+          <li><span class="ok">✓</span> 字始终居中，不会被挤到一边</li>
+          <li><span class="ok">✓</span> 数值变化时宽度不跳（预留了最宽的情况）</li>
+          <li><span class="ok">✓</span> 点面板时，那个小箭头永远指着数字中间</li>
+        </ul>
+      </div>
+      <div class="shot" style="margin:0">
+        <img src="assets/panel.png" alt="面板" style="max-width:320px">
+        <div class="cap">面板按内容撑开，一屏看完</div>
+      </div>
+    </div>
+    <div class="grid" style="margin-top:26px">
+      <div class="card"><div class="ico">📌</div><h3>面板不再乱跑</h3><p>加减菜单栏显示项时，面板会<b>平滑地滑过去</b>（加项向左、减项向右），不会来回抽。</p></div>
+      <div class="card"><div class="ico">🎯</div><h3>箭头始终对准</h3><p>弹窗那个小箭头永远指着数字的正中间，不会指到旁边的空白。</p></div>
+      <div class="card"><div class="ico">📐</div><h3>面板按内容撑开</h3><p>默认一屏看全，不用滚动。真的放不下时，往下滚一点点就到头。</p></div>
+      <div class="card"><div class="ico">🧩</div><h3>区块可关</h3><p>内存、温度、风扇、CPU、概览、进程榜都能单独关掉。只要「内存+温度」也行。</p></div>
+      <div class="card"><div class="ico">↔️</div><h3>宽度 / 字号可调</h3><p>宽度四档、字号三档，还能打开紧凑间距再压一压高度。</p></div>
+      <div class="card"><div class="ico">⚡</div><h3>免费版专注一件事</h3><p>免费版只保留「滚动」这一种布局，把它做到稳。分页 / 整页留给专业版。</p></div>
     </div>
   </div>
 </section>
@@ -474,7 +496,7 @@
     </details>
     <details>
       <summary>真的全免费？以后会不会突然收费？</summary>
-      <p>现在所有功能免费，没有功能锁。以后可能出一个专业版，会加<b>新</b>功能（历史曲线、隐形大户侦测等），但<b>现有功能不会收回，也不会收费</b>。不想花钱就用免费版，一点都不影响。</p>
+      <p>现在所有功能免费，没有功能锁。以后可能出一个专业版，会加<b>新</b>功能（分页切换 / 整页铺满、历史曲线、隐形大户侦测等），但<b>现有功能不会收回，也不会收费</b>。不想花钱就用免费版，一点都不影响。</p>
     </details>
     <details>
       <summary>它会偷偷联网、上传我的数据吗？</summary>
@@ -552,7 +574,7 @@ const FEEDBACK_EMAIL = "micky_2023@qq.com";
     const full = body
       + "\n\n—————\n"
       + "机型 / macOS 版本：（方便的话补一下）\n"
-      + "PulseBar 版本：2.1";
+      + "PulseBar 版本：2.3";
     const url = "mailto:" + FEEDBACK_EMAIL
       + "?subject=" + encodeURIComponent(subject)
       + "&body=" + encodeURIComponent(full);
@@ -572,7 +594,10 @@ const FEEDBACK_EMAIL = "micky_2023@qq.com";
 // ============ 下载与打赏：只改这一块就够了 ============
 const CONFIG = {
   // 下载文件：放相对路径即可（换新版本只改文件名）
-  downloadUrl: "download/PulseBar-2.1.zip",
+  downloadUrl: "download/PulseBar-2.3.zip",
+
+  // GitHub 下载入口：指向 Releases 页。用 latest 就永远指向最新版，不用每次改。
+  githubReleasesUrl: "https://github.com/MICKY20091101-CODER/pulsebar/releases/latest",
 
   // 收款码图片：把自己的微信 / 支付宝收款码截图
   // 直接覆盖 assets/donate-wechat.png 和 assets/donate-alipay.png 即可，文件名不用改。
@@ -587,7 +612,13 @@ const CONFIG = {
   // 下载按钮：统一指向真实文件
   document.querySelectorAll("[data-download]").forEach(function (a) {
     a.setAttribute("href", CONFIG.downloadUrl);
-    a.setAttribute("download", "");
+    a.setAttribute("download", "");   // 同域文件 + download 属性 = 点击立刻下载，不跳转
+    a.setAttribute("rel", "noopener");
+  });
+  document.querySelectorAll("[data-github-download]").forEach(function (a) {
+    a.setAttribute("href", CONFIG.githubReleasesUrl);
+    a.removeAttribute("download");
+    a.setAttribute("target", "_blank");
     a.setAttribute("rel", "noopener");
   });
 

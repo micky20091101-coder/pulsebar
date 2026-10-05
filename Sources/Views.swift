@@ -151,9 +151,15 @@ struct FloatingView: View {
 struct PanelView: View {
     @ObservedObject var model: AppModel
     var renderMode = false
+    /// 把实测内容高度回传给 AppDelegate，用来决定弹窗多大
+    var metrics: PanelMetrics? = nil
     @State private var pendingKill: ProcInfo?
     /// 实测出的内容高度，用来决定面板要不要滚动
     @State private var contentHeight: CGFloat = 0
+
+    /// 设置页固定高度：编辑设置时弹窗尺寸锁死，不做任何 resize
+    /// —— 这是「编辑菜单栏显示时错位/卡顿」的根治办法。
+    static let settingsContentHeight: CGFloat = 430
 
     var body: some View {
         // 必须在构建子视图之前设好，子视图里的 FS() 才拿得到正确倍率
@@ -162,7 +168,9 @@ struct PanelView: View {
         VStack(spacing: model.settings.compactPanel ? 7 : 10) {
             header
             if model.showSettings {
+                // 设置页给一个固定高度：编辑过程中内容怎么变，外框都不动。
                 SettingsView(model: model, renderMode: renderMode)
+                    .frame(height: renderMode ? nil : Self.settingsContentHeight)
             } else {
                 mainContent
             }
@@ -171,6 +179,17 @@ struct PanelView: View {
         .padding(model.settings.compactPanel ? 9 : 12)
         .frame(width: CGFloat(model.settings.panelWidth))
         .environment(\.compactPanel, model.settings.compactPanel)
+        // 在「最外层」消费高度，AppDelegate 用它设置 popover.contentSize。
+        .onPreferenceChange(ContentHeightKey.self) { h in
+            guard !renderMode else { return }
+            if model.showSettings {
+                // ★ 设置页：高度锁死、指纹锁死 —— 编辑设置时绝不 resize。
+                // NSPopover 一旦 resize 就会重算锚点，用户看到的就是「错位 + 很卡」。
+                metrics?.report(Self.settingsContentHeight, signature: "settings")
+            } else if h > 1 {
+                metrics?.report(h, signature: layoutSignature)
+            }
+        }
         .background(Color.clear)
         .alert("结束这个进程？", isPresented: Binding(
             get: { pendingKill != nil },
@@ -214,28 +233,45 @@ struct PanelView: View {
         }
     }
 
+    /// 「布局指纹」：只有这些因素变了，弹窗才需要调整大小。
+    /// 刻意不含实时数据 —— 否则进程榜行数一变弹窗就抖一下。
+    private var layoutSignature: String {
+        let st = model.settings
+        let secs = st.panelSections.map { $0.rawValue }.sorted().joined(separator: ",")
+        return [
+            String(Int(st.panelWidth)),
+            String(st.fontScale),
+            String(st.compactPanel),
+            secs,
+        ].joined(separator: "|")
+    }
+
     /// 当前设置里勾选了哪些区块
     private func shows(_ s: PanelSection) -> Bool {
         guard !model.settings.panelSections.isEmpty else { return true }  // 全不选时兜底显示全部
         return model.settings.panelSections.contains(s)
     }
 
+    /// 把区块枚举映射到具体卡片
+    @ViewBuilder
+    private func card(for s: PanelSection) -> some View {
+        switch s {
+        case .memory:      memoryCard
+        case .advice:      adviceCard
+        case .temperature: temperatureCard
+        case .fan:         fanCard
+        case .cpu:         cpuCard
+        case .summary:     compactCard
+        case .processes:   processCard
+        }
+    }
+
     private var contentStack: some View {
         VStack(spacing: model.settings.compactPanel ? 7 : 10) {
-            if shows(.memory)      { memoryCard }
-            if shows(.advice)      { adviceCard }
-            if shows(.temperature) { temperatureCard }
-            if shows(.fan)         { fanCard }
-            if shows(.cpu)         { cpuCard }
-            if shows(.summary)     { compactCard }
-            if shows(.processes)   { processCard }
-            if let msg = model.lastActionMessage {
-                Text(msg)
-                    .font(.system(size: FS(11)))
-                    .foregroundStyle(Theme.secondary)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal, 2)
+            ForEach(PanelSection.allCases) { s in
+                if shows(s) { card(for: s) }
             }
+            actionMessage
         }
         .padding(.bottom, 2)
         // 量一下真实高度，用来决定面板要不要滚动
@@ -246,10 +282,28 @@ struct PanelView: View {
         )
     }
 
-    /// 面板最多能长多高：贴着屏幕可用高度留点余量，让「一屏看全」尽可能成立
+    @ViewBuilder
+    private var actionMessage: some View {
+        if let msg = model.lastActionMessage {
+            Text(msg)
+                .font(.system(size: FS(11)))
+                .foregroundStyle(Theme.secondary)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 2)
+        }
+    }
+
+    /// 面板最多能长多高：贴着屏幕可用高度留点余量
     private var maxPanelHeight: CGFloat {
         let visible = NSScreen.main?.visibleFrame.height ?? 900
         return max(360, visible - 120)
+    }
+
+    /// 面板最多显示多高：只给内容高度的一部分，让用户滚一点点就能到底，
+    /// 而不是滚半天，也不会短到一屏只看到一两行。
+    private var scrollLimit: CGFloat {
+        guard contentHeight > 1 else { return 600 }          // 还没量到，先给个中间值
+        return min(max(contentHeight * 0.6, 420), maxPanelHeight)
     }
 
     private var mainContent: some View {
@@ -258,12 +312,13 @@ struct PanelView: View {
                 // 离屏渲染时不能套 ScrollView：它的 fittingSize 不准，会把下面的卡片截掉
                 contentStack
             } else {
-                // 内容装得下就不滚：把上限放到屏幕高度，而不是写死一个矮值
-                ScrollView(.vertical, showsIndicators: contentHeight > maxPanelHeight) {
+                ScrollView(.vertical, showsIndicators: contentHeight > scrollLimit) {
                     contentStack
                 }
-                .frame(maxHeight: model.settings.autoFitPanel ? maxPanelHeight : 520)
-                .onPreferenceChange(ContentHeightKey.self) { contentHeight = $0 }
+                .frame(maxHeight: scrollLimit)
+                .onPreferenceChange(ContentHeightKey.self) { h in
+                    contentHeight = h              // 判断要不要显示滚动条
+                }
             }
         }
     }
@@ -567,8 +622,16 @@ struct SettingsView: View {
         if renderMode {
             settingsStack
         } else {
-            ScrollView(.vertical, showsIndicators: false) { settingsStack }
-                .frame(maxHeight: 460)
+            // 固定高度（外层 PanelView 指定），内部滚动。
+            // 高度锁死 = 编辑设置时弹窗绝不 resize，也就不会错位/卡顿。
+            ScrollView(.vertical, showsIndicators: true) { settingsStack }
+                // 上报一次高度：让外层知道「现在处于设置页」，
+                // 外层会据此把弹窗尺寸锁死（用的是固定值，不是这个测量值）。
+                .background(
+                    GeometryReader { g in
+                        Color.clear.preference(key: ContentHeightKey.self, value: g.size.height)
+                    }
+                )
         }
     }
 
@@ -610,22 +673,20 @@ struct SettingsView: View {
                         .frame(width: 110)
                     }
 
-                    // 字号：小一点就能少滚动
+                    // 字号：小 / 中 / 大
                     HStack {
                         Text("字号").font(.system(size: FS(12)))
                         Spacer()
                         Picker("", selection: $model.settings.fontScale) {
-                            Text("紧凑").tag(0.85)
-                            Text("标准").tag(1.0)
-                            Text("宽松").tag(1.15)
+                            Text("小").tag(0.85)
+                            Text("中").tag(1.0)
+                            Text("大").tag(1.15)
                         }
                         .labelsHidden()
                         .frame(width: 110)
                     }
 
                     Toggle("紧凑间距", isOn: $model.settings.compactPanel)
-                        .font(.system(size: FS(12)))
-                    Toggle("自动撑开高度（尽量一屏看全）", isOn: $model.settings.autoFitPanel)
                         .font(.system(size: FS(12)))
 
                     Text("显示哪些区块（不想要的关掉，就不用滚动了）")
@@ -648,6 +709,14 @@ struct SettingsView: View {
                     }
                     .buttonStyle(.borderless)
                     .foregroundStyle(Color.accentColor)
+                }
+
+                Card(title: "专业版（敬请期待）") {
+                    Text("分页切换 · 整页铺满 · 更多区块")
+                        .font(.system(size: FS(12)))
+                    Text("这两个布局正在做，会放进专业版。现在的面板会按内容自动撑开，看不完的部分往下滚一点点就能看完。")
+                        .font(.system(size: FS(10.5))).foregroundStyle(Theme.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
 
                 Card(title: "悬浮小窗") {

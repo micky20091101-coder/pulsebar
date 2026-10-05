@@ -2,6 +2,7 @@ import Foundation
 import SwiftUI
 import AppKit
 import UserNotifications
+import Combine
 
 // MARK: - 菜单栏显示项
 
@@ -16,6 +17,18 @@ enum MenuBarItem: String, CaseIterable, Identifiable {
         case .net: return "网络"
         case .disk: return "磁盘"
         case .battery: return "电池"
+        }
+    }
+    /// 该项在菜单栏里可能出现的最宽文本。
+    /// 用来把状态栏项固定成一个不变宽度 —— 宽度一变，弹窗锚点就会横移（用户看到的「错位」）。
+    var widestSample: String {
+        switch self {
+        case .mem:     return "100%"
+        case .temp:    return "100°"
+        case .cpu:     return "C100%"
+        case .net:     return "↓1023 KB/s"   // 覆盖到 999.9 MB/s，够用又不虚占宽度
+        case .disk:    return "100%"
+        case .battery: return "100%"
         }
     }
 }
@@ -97,12 +110,10 @@ final class Settings: ObservableObject {
 
     /// 面板宽度：越宽越不容易换行，整体越矮
     @Published var panelWidth: Double { didSet { d.set(panelWidth, forKey: "panelWidth") } }
-    /// 字号缩放：0.85 紧凑 / 1.0 标准 / 1.15 宽松
+    /// 字号：小 / 中 / 大
     @Published var fontScale: Double { didSet { d.set(fontScale, forKey: "fontScale") } }
     /// 紧凑间距：卡片内外间距都收紧
     @Published var compactPanel: Bool { didSet { d.set(compactPanel, forKey: "compactPanel") } }
-    /// 自动撑开高度：尽量一屏显示完，不用滚动
-    @Published var autoFitPanel: Bool { didSet { d.set(autoFitPanel, forKey: "autoFitPanel") } }
     /// 面板里显示哪些区块
     @Published var panelSections: [PanelSection] {
         didSet { d.set(panelSections.map { $0.rawValue }, forKey: "panelSections") }
@@ -120,9 +131,7 @@ final class Settings: ObservableObject {
 
         panelWidth = d.object(forKey: "panelWidth") as? Double ?? 380
         fontScale = d.object(forKey: "fontScale") as? Double ?? 1.0
-        // 默认开启两件「让人少滚动」的事
         compactPanel = d.object(forKey: "compactPanel") as? Bool ?? false
-        autoFitPanel = d.object(forKey: "autoFitPanel") as? Bool ?? true
         let secs = d.stringArray(forKey: "panelSections") ?? PanelSection.allCases.map { $0.rawValue }
         panelSections = secs.compactMap { PanelSection(rawValue: $0) }
     }
@@ -184,8 +193,16 @@ final class AppModel: ObservableObject {
     private static let autoCleanCooldown: TimeInterval = 600   // 自动模式冷却 10 分钟
     private static let autoCleanMaxPerRun = 2                  // 一次最多清 2 个
 
+    private var bag = Set<AnyCancellable>()
+
     init() {
         hardware = Hardware.load()
+        // ★ Settings 是「嵌套」的 ObservableObject —— 它的变化不会自动通知 AppModel。
+        // 不转发的话，改完设置界面要等下一次数据刷新（最多 2 秒）才更新，
+        // 表现就是「勾选慢一步 / 点了没反应」。这里把它转发上去。
+        settings.objectWillChange
+            .sink { [weak self] _ in self?.objectWillChange.send() }
+            .store(in: &bag)
     }
 
     var hardwareInfo: HardwareInfo { hardware }
