@@ -278,7 +278,7 @@
       <a class="btn ghost" data-github-download href="#">从 GitHub 下载</a>
       <a class="btn ghost" data-donate href="#">☕ 请我喝杯咖啡</a>
     </div>
-    <div class="meta">v2.3 · 完全免费 · 需要 macOS 14+ · 适配全部 Apple M 系列芯片</div>
+    <div class="meta">v2.4 · 完全免费 · 需要 macOS 14+ · 适配全部 Apple M 系列芯片</div>
   </div>
   <div class="shot wrap">
     <img src="assets/panel.png" alt="PulseBar 面板截图">
@@ -445,32 +445,32 @@
 <section id="whatsnew" class="contrast">
   <div class="wrap">
     <div class="sec-title">
-      <h2>2.3 更新：菜单栏和系统「长在一起」</h2>
-      <p>这一版没加新功能，全部精力花在两件「看着不起眼但很烦」的事上：<b style="color:var(--accent)">菜单栏的字要和系统一样大</b>，<b style="color:var(--accent)">面板要稳稳待在图标下面</b>。</p>
+      <h2>2.4 更新：适配全部 Apple 芯片 Mac</h2>
+      <p>这一版专门做了一件事：<b style="color:var(--accent)">确保它在任何一台 Apple 芯片的 Mac 上都正常工作</b>，不管有没有风扇、有没有电池、有没有刘海。</p>
     </div>
     <div class="split">
       <div>
-        <h3 style="margin-top:0">菜单栏文字与系统完全一致</h3>
-        <p style="color:var(--muted)">之前用的是别的字体，摆在一排系统图标里总觉得"小一圈、不是亲生的"。现在改成 macOS 菜单栏的原生字体（13pt），字高、基线全都对齐。</p>
+        <h3 style="margin-top:0">按你的机器自动增减内容</h3>
+        <p style="color:var(--muted)">不是一套死板界面硬套所有电脑 —— 它会先认出你是什么机器，再决定该显示什么。</p>
         <ul class="checklist">
-          <li><span class="ok">✓</span> 和旁边的电池、蓝牙、时钟一样大</li>
-          <li><span class="ok">✓</span> 字始终居中，不会被挤到一边</li>
-          <li><span class="ok">✓</span> 数值变化时宽度不跳（预留了最宽的情况）</li>
-          <li><span class="ok">✓</span> 点面板时，那个小箭头永远指着数字中间</li>
+          <li><span class="ok">✓</span> <b style="color:var(--text)">MacBook Air（无风扇）</b>：不显示风扇栏，不会出现一行空白</li>
+          <li><span class="ok">✓</span> <b style="color:var(--text)">Mac mini / Studio / Mac Pro（无电池）</b>：不显示电池明细</li>
+          <li><span class="ok">✓</span> <b style="color:var(--text)">双屏 / 多屏</b>：面板会出现在「菜单栏图标所在的那块屏」上</li>
+          <li><span class="ok">✓</span> <b style="color:var(--text)">小屏机器</b>：面板宽度会自动收窄，不会超出屏幕</li>
         </ul>
       </div>
       <div class="shot" style="margin:0">
         <img src="assets/panel.png" alt="面板" style="max-width:320px">
-        <div class="cap">面板按内容撑开，一屏看完</div>
+        <div class="cap">面板按你的机器自动组装</div>
       </div>
     </div>
     <div class="grid" style="margin-top:26px">
-      <div class="card"><div class="ico">📌</div><h3>面板不再乱跑</h3><p>加减菜单栏显示项时，面板会<b>平滑地滑过去</b>（加项向左、减项向右），不会来回抽。</p></div>
-      <div class="card"><div class="ico">🎯</div><h3>箭头始终对准</h3><p>弹窗那个小箭头永远指着数字的正中间，不会指到旁边的空白。</p></div>
-      <div class="card"><div class="ico">📐</div><h3>面板按内容撑开</h3><p>默认一屏看全，不用滚动。真的放不下时，往下滚一点点就到头。</p></div>
-      <div class="card"><div class="ico">🧩</div><h3>区块可关</h3><p>内存、温度、风扇、CPU、概览、进程榜都能单独关掉。只要「内存+温度」也行。</p></div>
-      <div class="card"><div class="ico">↔️</div><h3>宽度 / 字号可调</h3><p>宽度四档、字号三档，还能打开紧凑间距再压一压高度。</p></div>
-      <div class="card"><div class="ico">⚡</div><h3>免费版专注一件事</h3><p>免费版只保留「滚动」这一种布局，把它做到稳。分页 / 整页留给专业版。</p></div>
+      <div class="card"><div class="ico">💻</div><h3>M1~M4 全线通吃</h3><p>Air、Pro、mini、iMac、Studio、Mac Pro 都能识别机型名，一份安装包通用，不用挑版本。</p></div>
+      <div class="card"><div class="ico">📐</div><h3>有刘海也没关系</h3><p>菜单栏由系统排版，图标永远不会被刘海挡住。有刘海 / 没刘海表现一致。</p></div>
+      <div class="card"><div class="ico">🌗</div><h3>浅色 / 深色都好看</h3><p>文字和背景用系统语义色，跟随你的外观设置自动切换。</p></div>
+      <div class="card"><div class="ico">🖥️</div><h3>外接显示器</h3><p>菜单栏图标在哪块屏，面板就在哪块屏正确显示。</p></div>
+      <div class="card"><div class="ico">🛡️</div><h3>读不到也不崩</h3><p>某个传感器读不到时显示「--」，不会出现 NaN 或空白。</p></div>
+      <div class="card"><div class="ico">🧪</div><h3>4 种机型实测过</h3><p>用笔记本 / 台式机 / 大内存 / 无电池四种配置逐一渲染验证过排版。</p></div>
     </div>
   </div>
 </section>
@@ -574,7 +574,7 @@ const FEEDBACK_EMAIL = "micky_2023@qq.com";
     const full = body
       + "\n\n—————\n"
       + "机型 / macOS 版本：（方便的话补一下）\n"
-      + "PulseBar 版本：2.3";
+      + "PulseBar 版本：2.4";
     const url = "mailto:" + FEEDBACK_EMAIL
       + "?subject=" + encodeURIComponent(subject)
       + "&body=" + encodeURIComponent(full);
@@ -595,7 +595,7 @@ const FEEDBACK_EMAIL = "micky_2023@qq.com";
 const CONFIG = {
   // 下载文件：相对路径即可（换新版本只改文件名）。
   // 两个地方都放了同一个 zip（托管站 + GitHub 仓库根目录），所以直接用相对路径最稳。
-  downloadUrl: "download/PulseBar-2.3.zip",
+  downloadUrl: "download/PulseBar-2.4.zip",
 
   // GitHub 下载入口：指向 Releases 页。用 latest 就永远指向最新版，不用每次改。
   githubReleasesUrl: "https://github.com/MICKY20091101-CODER/pulsebar/releases/latest",
