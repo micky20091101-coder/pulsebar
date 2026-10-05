@@ -1,0 +1,25 @@
+这个文件是干什么的：README 的补充。
+
+GitHub 上你的仓库里少了一个叫 .gitignore 的文件。
+它只在你以后用「命令行 git」提交代码时才有用（用来排除编译产物）。
+
+如果你一直用网页拖拽上传，**可以不管它**。
+
+想加上也很简单：
+1. 打开 https://github.com/MICKY20091101-CODER/pulsebar/new/main
+2. 文件名那一栏输入：.gitignore
+3. 把下面这 15 行粘进去：
+----------------------------------------
+# 编译产物
+build/
+release/_stage/
+*.o
+*.dSYM/
+
+# 大文件（安装包放 Release，不进仓库）
+*.zip
+
+# macOS
+.DS_Store
+----------------------------------------
+4. 拉到底点 Commit changes
