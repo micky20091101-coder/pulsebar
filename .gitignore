@@ -1,0 +1,11 @@
+# 编译产物
+build/
+release/_stage/
+*.o
+*.dSYM/
+
+# 大文件（安装包放 Release，不进仓库）
+*.zip
+
+# macOS
+.DS_Store
