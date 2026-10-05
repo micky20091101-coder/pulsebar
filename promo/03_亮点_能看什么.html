@@ -1,0 +1,47 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body { width:1080px; height:1440px; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", sans-serif;
+  background: radial-gradient(1100px 760px at 18% -6%, #17222e 0%, #0b0d12 52%, #07090d 100%);
+  color: #eef1f6; padding: 66px 70px; overflow: hidden; position: relative;
+  -webkit-font-smoothing: antialiased;
+}
+body::after {
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background: radial-gradient(600px 400px at 88% 105%, rgba(74,222,128,.10), transparent 70%);
+}
+.brand { display:flex; align-items:center; gap:12px; font-size:26px; font-weight:700; letter-spacing:.3px; }
+.brand .dot { width:16px; height:16px; border-radius:50%; background:#4ade80; box-shadow:0 0 18px rgba(74,222,128,.7); }
+.tag {
+  display:inline-block; margin-top:26px; font-size:24px; color:#9aa3b2;
+  border:1px solid rgba(255,255,255,.14); border-radius:999px; padding:10px 24px;
+}
+h1 { font-size:86px; line-height:1.16; font-weight:800; letter-spacing:-1.5px; margin-top:26px; }
+h1 .hl { color:#4ade80; }
+h1 .hl2 { color:#38bdf8; }
+.sub { font-size:31px; line-height:1.62; color:#a7b0be; margin-top:28px; font-weight:400; }
+.foot { position:absolute; left:70px; right:70px; bottom:56px; font-size:24px; color:#7f8896; display:flex; justify-content:space-between; align-items:center; }
+.card { background:linear-gradient(180deg,#1a1f2b,#141821); border:1px solid rgba(255,255,255,.09); border-radius:22px; padding:26px 28px; }
+.bar { height:12px; border-radius:99px; background:rgba(255,255,255,.09); overflow:hidden; margin-top:14px; }
+.bar > i { display:block; height:100%; border-radius:99px; }
+
+.grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:46px; }
+.grid .card { padding:24px 26px; }
+.ico { font-size:40px; }
+.grid h3 { font-size:30px; font-weight:700; margin:10px 0 6px; }
+.grid p { font-size:21px; color:#8b95a4; line-height:1.5; }
+</style></head><body>
+  <div class="brand"><span class="dot"></span>PulseBar</div>
+  <div class="tag">它到底能看什么</div>
+  <h1>抬头一眼<br><span class="hl">全在菜单栏</span></h1>
+  <div class="grid">
+    <div class="card"><div class="ico">🌡️</div><h3>温度</h3><p>全机最高温 + CPU/GPU/SSD/电池 分区温度</p></div>
+    <div class="card"><div class="ico">🧠</div><h3>内存压力</h3><p>不只看占用率，更看压力与换页速度</p></div>
+    <div class="card"><div class="ico">⚡</div><h3>CPU</h3><p>总体占用 + 每核心柱状图 + 系统负载</p></div>
+    <div class="card"><div class="ico">🌐</div><h3>网络</h3><p>实时上下行速率，虚拟网卡不重复计数</p></div>
+    <div class="card"><div class="ico">💾</div><h3>磁盘</h3><p>已用 / 可用与占比条，容量告急一眼可见</p></div>
+    <div class="card"><div class="ico">🌀</div><h3>风扇转速</h3><p>带风扇的机型自动出现，Air 则不显示</p></div>
+  </div>
+  <div class="foot"><span>读取你的实际内存与核心数</span><span>8GB 和 128GB 各用各的标准</span></div>
+</body></html>

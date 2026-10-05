@@ -1,0 +1,55 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body { width:1080px; height:1440px; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", sans-serif;
+  background: radial-gradient(1100px 760px at 18% -6%, #17222e 0%, #0b0d12 52%, #07090d 100%);
+  color: #eef1f6; padding: 66px 70px; overflow: hidden; position: relative;
+  -webkit-font-smoothing: antialiased;
+}
+body::after {
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background: radial-gradient(600px 400px at 88% 105%, rgba(74,222,128,.10), transparent 70%);
+}
+.brand { display:flex; align-items:center; gap:12px; font-size:26px; font-weight:700; letter-spacing:.3px; }
+.brand .dot { width:16px; height:16px; border-radius:50%; background:#4ade80; box-shadow:0 0 18px rgba(74,222,128,.7); }
+.tag {
+  display:inline-block; margin-top:26px; font-size:24px; color:#9aa3b2;
+  border:1px solid rgba(255,255,255,.14); border-radius:999px; padding:10px 24px;
+}
+h1 { font-size:86px; line-height:1.16; font-weight:800; letter-spacing:-1.5px; margin-top:26px; }
+h1 .hl { color:#4ade80; }
+h1 .hl2 { color:#38bdf8; }
+.sub { font-size:31px; line-height:1.62; color:#a7b0be; margin-top:28px; font-weight:400; }
+.foot { position:absolute; left:70px; right:70px; bottom:56px; font-size:24px; color:#7f8896; display:flex; justify-content:space-between; align-items:center; }
+.card { background:linear-gradient(180deg,#1a1f2b,#141821); border:1px solid rgba(255,255,255,.09); border-radius:22px; padding:26px 28px; }
+.bar { height:12px; border-radius:99px; background:rgba(255,255,255,.09); overflow:hidden; margin-top:14px; }
+.bar > i { display:block; height:100%; border-radius:99px; }
+
+.cards { display:grid; grid-template-columns:1fr 1fr; gap:22px; margin-top:52px; }
+.card h3 { font-size:26px; color:#9aa3b2; font-weight:600; margin-bottom:6px; }
+.card .big { font-size:56px; font-weight:800; letter-spacing:-1px; }
+.card .note { font-size:21px; color:#7f8896; margin-top:8px; }
+</style></head><body>
+  <div class="brand"><span class="dot"></span>PulseBar</div>
+  <div class="tag">macOS 菜单栏小工具 · 完全免费</div>
+  <h1>别再装<br><span class="hl">“一键清理内存”</span><br>的软件了</h1>
+  <div class="sub">它很可能在你挂着微信的时候，<br>把微信直接关掉——消息就丢了。</div>
+
+  <div class="cards">
+    <div class="card">
+      <h3>内存压力</h3>
+      <div class="big" style="color:#fbbf24">偏高</div>
+      <div class="bar"><i style="width:72%;background:linear-gradient(90deg,#fbbf24,#f97316)"></i></div>
+      <div class="note">换页 12.0 / 3.0 次/秒</div>
+    </div>
+    <div class="card">
+      <h3>全机最高温</h3>
+      <div class="big" style="color:#4ade80">56<span style="font-size:30px">°C</span></div>
+      <div class="bar"><i style="width:52%;background:linear-gradient(90deg,#4ade80,#22c55e)"></i></div>
+      <div class="note">CPU 52° · GPU 48° · SSD 44°</div>
+    </div>
+  </div>
+
+  <div class="foot"><span>温度 · 内存 · CPU · 风扇</span><span>不联网 · 不自动杀进程</span></div>
+</body></html>
