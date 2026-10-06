@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://micky20091101-coder.github.io/pulsebar/sitemap.xml
