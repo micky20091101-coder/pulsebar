@@ -3,8 +3,49 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PulseBar — 把 Mac 的状态放在菜单栏里</title>
-<meta name="description" content="PulseBar 是一款 macOS 菜单栏系统监控小工具：温度、内存、CPU、网络、磁盘、电池一眼看清。不自动杀进程，不后台联网，安静常驻。">
+<title>PulseBar — Mac 菜单栏系统监控工具｜看温度、内存、CPU，免费下载</title>
+<meta name="description" content="PulseBar 是一款 macOS 菜单栏系统监控小工具：温度、内存压力、CPU、网络、磁盘、电池一眼看清。不自动杀进程，不后台联网，不注册，完全免费。适配全部 Apple M 系列芯片（M1~M4）。">
+<meta name="keywords" content="PulseBar,Mac 菜单栏监控,Mac 温度监控,Mac 内存监控,macOS 监控软件,菜单栏工具,Mac 发烫,活动监视器替代,免费 Mac 软件,Apple Silicon">
+<meta name="author" content="PulseBar">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://micky20091101-coder.github.io/pulsebar/">
+<!-- 社交平台分享卡片（小红书/微信/B站 里贴链接时显示） -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PulseBar">
+<meta property="og:title" content="PulseBar — Mac 菜单栏系统监控工具，完全免费">
+<meta property="og:description" content="温度、内存压力、CPU、网络、磁盘、电池放在菜单栏，抬头一眼看清。不自动杀进程、不联网、不注册。">
+<meta property="og:url" content="https://micky20091101-coder.github.io/pulsebar/">
+<meta property="og:image" content="https://micky20091101-coder.github.io/pulsebar/assets/panel.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%234ade80'/></svg>">
+<!-- 结构化数据：让搜索引擎认得「这是一个免费软件」 -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "PulseBar",
+  "alternateName": "PulseBar Mac 菜单栏监控",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "macOS 14 或更高版本，Apple Silicon（M1 / M2 / M3 / M4）",
+  "description": "macOS 菜单栏系统监控工具。把 CPU 温度、内存压力、CPU 占用、网络速率、磁盘空间、电池状态放在菜单栏，抬头一眼看清。不自动结束进程、不联网上传数据、不需要注册。",
+  "url": "https://micky20091101-coder.github.io/pulsebar/",
+  "downloadUrl": "https://micky20091101-coder.github.io/pulsebar/download/PulseBar-2.4.zip",
+  "softwareVersion": "2.4",
+  "inLanguage": "zh-CN",
+  "isAccessibleForFree": true,
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "CNY"
+  },
+  "featureList": [
+    "菜单栏显示 CPU 温度 / 内存压力 / CPU / 网络 / 磁盘 / 电池",
+    "面板查看内存构成、温度分区、风扇转速、进程占用排行",
+    "永不自动结束进程，结束进程必须手动确认",
+    "不联网、不上传任何数据、不含任何统计"
+  ]
+}
+</script>
 <style>
   :root {
     --bg: #0b0d12;
@@ -28,6 +69,9 @@
     line-height: 1.6; -webkit-font-smoothing: antialiased;
   }
   a { color: inherit; text-decoration: none; }
+  /* 只给搜索引擎和读屏软件看 */
+  .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+             overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
   .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
 
   /* 导航 */
@@ -271,7 +315,7 @@
 <header class="hero">
   <div class="wrap">
     <div class="badge">macOS · Apple Silicon 原生 · <b>不联网</b></div>
-    <h1>把 Mac 的状态<br><span class="grad">放在菜单栏里</span></h1>
+    <h1><span class="sr-only">PulseBar —— </span>把 Mac 的状态<br><span class="grad">放在菜单栏里</span></h1>
     <p class="sub">温度、内存压力、CPU、网络、磁盘、电池——抬头一眼就看清。不自动杀进程，不后台联网，安静地待在角落。</p>
     <div class="cta">
       <a class="btn primary" data-download href="#pricing">直接下载</a>
