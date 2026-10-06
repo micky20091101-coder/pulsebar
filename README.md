@@ -25,7 +25,7 @@
 
 ## 兼容性
 
-- 仅支持 **Apple 芯片**（M1 / M2 / M3 / M4 全系列，含 MacBook Air、MacBook Pro、Mac mini、iMac、Mac Studio、Mac Pro）
+- 仅支持 **Apple 芯片**（M1 / M2 / M3 / M4 / M5 / M6 及后续全系列 Apple Silicon，含 MacBook Air、MacBook Pro、Mac mini、iMac、Mac Studio、Mac Pro）
 - 需要 **macOS 14.0** 或更高版本
 - 一份安装包通用全部 M 系列机型，无需区分
 
